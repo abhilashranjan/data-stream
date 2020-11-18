@@ -1,0 +1,36 @@
+server:
+  port: 8081
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: order-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/productdb
+    username: abhilash
+    password: admin
+  kafka:
+    client-id: square-finder
+    bootstrap-servers:
+      - localhost:9091
+      - localhost:9092
+      - localhost:9093
+    consumer:
+      group-id: user-service-group
+      auto-offset-reset: earliest
+      key-serializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
+    template:
+        default-topic: user-service-event
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+---
+kafka:
+  topic:
+    input: input-topic
+    odd-output: double-output
+    even-output: square-output
